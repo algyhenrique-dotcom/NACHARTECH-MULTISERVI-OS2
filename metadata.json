@@ -1,0 +1,6 @@
+{
+  "name": "NacharTech Multisserviços",
+  "description": "NacharTech Multisserviços — Tecnologia, informática, CCTV, redes, eletricidade, climatização, papelaria e assistência técnica em Nampula, Moçambique.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

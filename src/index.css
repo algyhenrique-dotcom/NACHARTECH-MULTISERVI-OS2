@@ -1,0 +1,464 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0f1115;
+  --surface: #171a20;
+  --surface-2: #1e222b;
+  --text: #f4f1ec;
+  --muted: #9a978f;
+  --accent: #ff7a1a;
+  --accent2: #5fc9bd;
+  --brand-blue: #2f4f92;
+  --film-ink: #0a0b0e;
+  --film-text: #f4f1ec;
+  --font-grotesque: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --mx: 0;
+  --my: 0;
+  --cue: 1;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: #f7f4ef;
+  --surface: #ffffff;
+  --surface-2: #efeae1;
+  --text: #16181d;
+  --muted: #5e605c;
+  --accent: #d95a05;
+  --accent2: #0e8a7d;
+  --brand-blue: #24407a;
+  --film-ink: #0a0b0e;
+  --film-text: #f4f1ec;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: clip;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-grotesque);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.5s ease, color 0.5s ease;
+  margin: 0;
+  padding: 0;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* Typography signatures */
+.accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--accent);
+}
+
+.stamp {
+  font-size: 11px;
+  font-weight: 400;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent2);
+}
+
+.cta {
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 13px 22px;
+  background: var(--accent);
+  color: #14100b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, filter 0.2s ease;
+  border: none;
+  text-decoration: none;
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+}
+
+.sub {
+  font-size: clamp(15px, 1.3vw, 19px);
+  font-weight: 400;
+  line-height: 1.45;
+  max-width: 38ch;
+  color: color-mix(in srgb, var(--film-text) 88%, transparent);
+}
+
+/* Pill buttons for Nav & controls */
+.pill-btn {
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, currentColor 24%, transparent);
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  color: inherit;
+}
+
+.pill-btn:hover {
+  background: color-mix(in srgb, currentColor 15%, transparent);
+  border-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+
+.pill-icon-btn {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, currentColor 24%, transparent);
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  color: inherit;
+}
+
+.pill-icon-btn:hover {
+  background: color-mix(in srgb, currentColor 15%, transparent);
+  border-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+
+.nav-count {
+  width: 17px;
+  height: 17px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #14100b;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -4px;
+  right: -4px;
+}
+
+/* Custom Cursor removed per user request */
+
+/* Nav Link Underline */
+.nav-link {
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+
+/* Line Masks (A.3) */
+.line {
+  display: block;
+  overflow: hidden;
+  padding: 0.12em 0.08em 0.22em;
+  margin: -0.12em -0.08em -0.22em;
+}
+
+.line-in {
+  display: block;
+  transform: translateY(calc(var(--o-inv, 0) * 130%));
+  will-change: transform;
+}
+
+/* Banner Chapter (A.3) */
+.chapter {
+  min-height: 100vh;
+  min-height: 100svh;
+  position: relative;
+  width: 100%;
+}
+
+.stage {
+  min-height: 100vh;
+  min-height: 100svh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--film-ink);
+  position: relative;
+  color: var(--film-text);
+}
+
+.plate {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(var(--soften, 0px));
+}
+
+.veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--film-ink) 58%, transparent) 0%,
+    color-mix(in srgb, var(--film-ink) 20%, transparent) 32%,
+    transparent 58%
+  );
+  pointer-events: none;
+}
+
+.veil-light {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.44);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.stage:has(.beat.is-on[data-tone="light"]) .veil-light {
+  opacity: 1;
+}
+
+/* Beats (A.3) */
+.beat {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(
+    calc(var(--mx, 0) * 14px),
+    calc((var(--local, 0.5) - 0.5) * -18px + var(--my, 0) * 10px + var(--exit, 0) * -12vh)
+  );
+  will-change: transform, opacity, filter;
+  transition: opacity 0.3s ease;
+}
+
+.beat.is-on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.beat.is-leaving {
+  filter: blur(calc(6px * var(--o-inv, 0)));
+}
+
+/* Motions by data-motion (A.3) */
+.beat[data-motion="rise"] > * {
+  transform: translateY(calc(var(--o-inv, 0) * var(--dir, -1) * -36px));
+}
+
+.beat[data-motion="drift"] > * {
+  transform: translateX(calc(var(--o-inv, 0) * var(--dir, -1) * var(--side, 1) * 48px));
+}
+
+.beat[data-motion="zoom"] > * {
+  transform: scale(calc(1 + var(--o-inv, 0) * var(--dir, -1) * -0.06));
+  transform-origin: left center;
+}
+
+.beat[data-motion="track"] h2 {
+  letter-spacing: calc(-0.03em + var(--o-inv, 0) * 0.12em);
+  transform: translateY(calc(var(--o-inv, 0) * var(--dir, -1) * -16px));
+}
+
+/* Static fallback for reduced motion */
+.chapter.is-static {
+  height: auto !important;
+}
+
+.chapter.is-static .beat {
+  position: relative !important;
+  inset: auto !important;
+  min-height: 100svh;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: none !important;
+  --o: 1 !important;
+  --o-inv: 0 !important;
+}
+
+.chapter.is-static .scroll-cue,
+.chapter.is-static video {
+  display: none !important;
+}
+
+/* Scroll Cue (A.3) */
+.scroll-cue {
+  width: 22px;
+  height: 34px;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  position: relative;
+  opacity: calc(var(--cue, 1) * (1 - var(--exit, 0)) * 0.8);
+  transition: opacity 0.3s ease;
+}
+
+.scroll-cue span {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 3px;
+  height: 7px;
+  margin-left: -1.5px;
+  border-radius: 999px;
+  background: currentColor;
+  animation: cue-drop 1.9s ease-in-out infinite;
+}
+
+@keyframes cue-drop {
+  0% { transform: translateY(0); opacity: 0.25; }
+  50% { transform: translateY(11px); opacity: 0.55; }
+  100% { transform: translateY(0); opacity: 0.25; }
+}
+
+@media (pointer: coarse) {
+  .scroll-cue {
+    display: none !important;
+  }
+}
+
+/* Scroll Reveal [data-reveal] (A.5) */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+
+[data-reveal].is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Manifesto Word by Word [data-words] (A.5) */
+.w {
+  color: var(--muted);
+  transition: color 0.35s ease;
+}
+
+.w.is-lit {
+  color: var(--text);
+}
+
+.w.is-lit em.accent {
+  color: var(--accent);
+}
+
+/* Marquee (A.5 & A.6) */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-track {
+  display: inline-flex;
+  gap: 3rem;
+  animation: marquee 26s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Keyframes (A.6) */
+@keyframes svcIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gridIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heart-pop {
+  0% { transform: scale(0.6); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+/* Form Styles */
+input, select, textarea {
+  font-family: inherit;
+  font-size: 14px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+  border-radius: 8px;
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--text) 20%, transparent);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
